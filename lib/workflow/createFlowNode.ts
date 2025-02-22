@@ -7,7 +7,7 @@ function createFlowNode(
 ):AppNode {
     return {
         id:crypto.randomUUID(),
-        type:"Node",
+        type:"FlowScrapeNode",
         dragHandle:".drag-handle",
         data:{
             type:nodeType,

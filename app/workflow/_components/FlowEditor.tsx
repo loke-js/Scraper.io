@@ -1,23 +1,27 @@
 "use client"
 
 import { Workflow } from '@prisma/client'
-import { Background, BackgroundVariant, Controls, ReactFlow, useNodesState, useReactFlow } from '@xyflow/react'
+import { addEdge, Background, BackgroundVariant, Connection, Controls, Edge, ReactFlow, useEdgesState, useNodesState, useReactFlow } from '@xyflow/react'
 import React, { useCallback, useEffect } from 'react'
 import "@xyflow/react/dist/style.css";
 import { TaskType } from '@/types/Task';
 import createFlowNode from '@/lib/workflow/createFlowNode';
 import NodeComponent from './nodes/NodeComponent';
 import { AppNode } from '@/types/appNode';
+import DeleteableEdge from './edges/DeleteableEdge';
 
 const nodeTypes = {
-    Node: NodeComponent,
+    FlowScrapeNode: NodeComponent,
+}
+const edgeTypes = {
+    default: DeleteableEdge
 }
 
 const snapGrid: [number, number] = [40, 40];
 const fitViewOptions = { padding: 1, maxZoom: 1 };
 function FlowEditor({ workflow }: { workflow: Workflow }) {
     const [nodes, setNodes, onNodesChange] = useNodesState<AppNode>([]);
-    const [edges, setEdges, onEdgesChange] = useNodesState([]);
+    const [edges, setEdges, onEdgesChange] = useEdgesState<Edge>([]);
     const { setViewport,screenToFlowPosition } = useReactFlow();
     useEffect(() => {
         try {
@@ -47,6 +51,9 @@ function FlowEditor({ workflow }: { workflow: Workflow }) {
         const newNode = createFlowNode(taskType as TaskType,position);
         setNodes((nodes) => nodes.concat(newNode));
     }, [])
+    const onConnect = useCallback((connection:Connection)=>{
+       setEdges(edges =>addEdge({...connection,animated:true},edges))
+    },[])
     return (
         <main className="h-full w-full">
             <ReactFlow
@@ -55,12 +62,14 @@ function FlowEditor({ workflow }: { workflow: Workflow }) {
                 onEdgesChange={onEdgesChange}
                 onNodesChange={onNodesChange}
                 nodeTypes={nodeTypes}
+                edgeTypes={edgeTypes}
                 snapToGrid
                 fitViewOptions={fitViewOptions}
                 snapGrid={snapGrid}
                 fitView
                 onDragOver={onDragOver}
                 onDrop={onDrop}
+                onConnect={onConnect}
             >
                 <Controls position='top-left' fitViewOptions={fitViewOptions} />
                 <Background variant={BackgroundVariant.Dots} gap={12} size={1} />
