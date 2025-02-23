@@ -69,10 +69,10 @@ function FlowEditor({ workflow }: { workflow: Workflow }) {
     const isValidConnection = useCallback((connection:Edge|Connection)=>{
         // no self-connection allowed
         if(connection.source===connection.target) return false;
-        console.log(connection);
+        
         const source = nodes.find((node)=> node.id === connection.source)
         const target = nodes.find((node)=> node.id === connection.target)
-        // console.log(target);
+        
         if(!source || !target) {
             console.log("invalid connection")
             return false;

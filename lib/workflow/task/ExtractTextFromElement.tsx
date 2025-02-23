@@ -1,4 +1,5 @@
 import {TaskParamType, TaskType} from '@/types/Task';
+import { WorkflowTask } from '@/types/workflow';
 import { CodeIcon, LucideProps, TextIcon } from 'lucide-react';
 
 export const ExtractTextFromElementTask ={
@@ -6,6 +7,7 @@ export const ExtractTextFromElementTask ={
     label:"Extract Text From Element",
     icon:(props:LucideProps)=>( <TextIcon className='stroke-rose-400'{...props}/>),
     isEntryPoint:false,
+    credits:2,
     inputs:[
         {   
             name:"Html",
@@ -27,4 +29,4 @@ export const ExtractTextFromElementTask ={
         },
         
     ]
-};
+} satisfies WorkflowTask ;
