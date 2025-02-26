@@ -1,10 +1,13 @@
 "use server"
 
 import { prisma } from "@/lib/prisma";
+import { ExecuteWorkflow } from "@/lib/workflow/executeWorkflow";
 import { FlowToExecutionPlan } from "@/lib/workflow/executionPlan";
 import { TaskRegistry } from "@/lib/workflow/task/registry";
 import { ExecutionPhaseStatus, WorkflowExecutionPlan, WorkflowExecutionStatus, WorkflowExecutionTrigger } from "@/types/workflow";
 import { auth } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
+
 
 export async function RunWorkflow(form:{
     workflowId:string,
@@ -45,6 +48,7 @@ export async function RunWorkflow(form:{
         data:{
             workflowId,
             userId,
+            definition:flowDefinition,
             status:WorkflowExecutionStatus.PENDING,
             startedAt:new Date(),
             trigger:WorkflowExecutionTrigger.MANUAL,
@@ -70,4 +74,6 @@ export async function RunWorkflow(form:{
     if(!execution){
         throw new Error("Failed to create workflow execution");
     }
+    ExecuteWorkflow(execution.id);//run this in background
+    redirect(`/workflow/runs/${workflowId}/${execution.id}`);
 }

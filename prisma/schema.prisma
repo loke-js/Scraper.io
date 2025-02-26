@@ -16,7 +16,12 @@ model Workflow {
   name String
   description String?
   definition String
-  status String
+  status String // DRAFT | PUBLISHED
+
+  lastRunAt DateTime?
+  lastRunId String?
+  lastRunStatus String?
+  
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
 
@@ -34,7 +39,9 @@ model WorkflowExecution {
     createdAt DateTime @default(now())
     startedAt DateTime? 
     completedAt DateTime?
-    
+    definition String 
+    creditsConsumed Int @default(0)
+
     phases ExecutionPhase[]
     workflow Workflow @relation(fields: [workflowId],references: [id],onDelete:Cascade)
 }
@@ -51,7 +58,7 @@ model ExecutionPhase {
   inputs String?
   outputs String?
 
-  creditsCost Int?
+  creditsConsumed Int?
 
   workflowExecutionId String
   execution WorkflowExecution @relation(fields: [workflowExecutionId],references: [id],onDelete: Cascade) 

@@ -1,7 +1,8 @@
 
 import Logo from '@/components/Logo'
 import { ModeToggle } from '@/components/themeModeToggle'
-import { Separator } from '@radix-ui/react-dropdown-menu'
+import { Separator } from '@/components/ui/separator'
+
 import React from 'react'
 
 function layout({children}:{children:React.ReactNode}) {
@@ -13,6 +14,7 @@ function layout({children}:{children:React.ReactNode}) {
         <Logo iconSize={16} fontSize="text-xl"/>
         <ModeToggle />
       </footer>
+      
     </div>
   )
 }
