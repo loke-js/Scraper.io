@@ -18,7 +18,7 @@ import { toast } from 'sonner';
 function CreateWorkflowDialog({triggerText}:{triggerText?:string}) {
     const [open,setOpen] =useState(false);
     const form = useForm<createWorkflowSchemaType>({
-        resolver: zodResolver(createWorkflowSchema),
+        resolver: zodResolver(createWorkflowSchema),              
         defaultValues:{}
     })
     const {mutate,isPending} = useMutation({
@@ -49,9 +49,8 @@ function CreateWorkflowDialog({triggerText}:{triggerText?:string}) {
                 icon={Layers2Icon}
                 title="Create Workflow"
                 subTitle="Start building your workflow"
-            
             />
-          <div className="p-6" >
+          <div className="p-6">
             <Form {...form}>
                 <form className='space-y-8 w-full' onSubmit={form.handleSubmit(onSubmit)}>
                     <FormField

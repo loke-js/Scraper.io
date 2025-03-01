@@ -7,7 +7,8 @@ import React, { Suspense } from 'react'
 import CreateWorkflowDialog from './_components/CreateWorkflowDialog'
 import WorkflowCard from './_components/WorkflowCard'
 
-const page = () => {
+const  page = () => {
+   
     return (
         <div className="flex-1 flex flex-col h-full">
             <div className="flex justify-between">
@@ -26,7 +27,7 @@ const page = () => {
     )
 }
 
-function UserWorkflowsSkeleton(){
+async function UserWorkflowsSkeleton(){
     return <div className="space-y-2">
         {[1,2,3,4].map((i)=>(
             <Skeleton key={i} className='h-32 w-full'/>
@@ -35,6 +36,7 @@ function UserWorkflowsSkeleton(){
 }
 
 async function UserWorkflows(){
+    // await waitFor(1000);
     const workflows = await GetWorkflowsForUser();
     if(!workflows){
        return( 
@@ -54,7 +56,7 @@ async function UserWorkflows(){
             </div>
             <div className="flex flex-col gap-1 text-center">
                 <p className="font-bold">No workflow created yet.</p>
-                <p className="text-sm text-muted-foreground">Click the button below to create for first workflow</p>
+                <p className="text-sm text-muted-foreground">Click the button below to create your first workflow</p>
             </div>
             <CreateWorkflowDialog triggerText='Create your first workflow'/>
         </div>

@@ -8,7 +8,7 @@ export enum WorkflowStatus{
 }
 
 export type WorkflowTask = {
-    label:string,
+    label:string;
     icon: React.FC<LucideProps>;
     type: TaskType;
     isEntryPoint?:boolean;

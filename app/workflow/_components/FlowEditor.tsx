@@ -31,10 +31,11 @@ function FlowEditor({ workflow }: { workflow: Workflow }) {
             setNodes(flow.nodes || []);
             setEdges(flow.edges || []);
             if (!flow.viewport) return;
+            console.log(flow.viewport.zoom);
             const { x = 0, y = 0, zoom = 1 } = flow.viewport;
             setViewport({ x, y, zoom });
         } catch (error) {
-
+                console.log(error);
         }
     }, [])
     const onDragOver = useCallback((event: React.DragEvent) => {

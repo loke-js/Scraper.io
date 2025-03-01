@@ -72,7 +72,7 @@ function WorkflowActions({workflowName,workflowId}:{workflowName:string;workflow
             </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align='end'>
-            <DropdownMenuLabel>Actions </DropdownMenuLabel>
+            <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuSeparator/>
             <DropdownMenuItem className='text-destructive flex items-center justify-center gap-2'
             onSelect={()=>{

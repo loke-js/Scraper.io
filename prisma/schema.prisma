@@ -61,5 +61,21 @@ model ExecutionPhase {
   creditsConsumed Int?
 
   workflowExecutionId String
-  execution WorkflowExecution @relation(fields: [workflowExecutionId],references: [id],onDelete: Cascade) 
+  execution WorkflowExecution @relation(fields: [workflowExecutionId],references: [id],onDelete: Cascade)
+  logs ExecutionLog[] 
+}
+
+model ExecutionLog{
+  id String @id @default(cuid())
+  logLevel String
+  message String
+  timestamp DateTime @default(now())
+
+  executionPhaseId String
+  executionPhase ExecutionPhase @relation(fields: [executionPhaseId], references: [id], onDelete: Cascade)
+}
+
+model userBalance {
+  userId String @id
+  credits Int @default(0)
 }
