@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation'
 import React from 'react'
 import SaveBtn from './SaveBtn'
 import ExecuteBtn from './ExecuteBtn'
+import NavigationTabs from './NavigationTabs'
 interface Props{
     title:string;
     subtitle?:string;
@@ -29,6 +30,7 @@ function Topbar({title,subtitle,workflowId,hideButtons=false}:Props) {
                 {subtitle && <p className="text-xs text-muted-foreground truncate text-ellipsis">{subtitle}</p> }
             </div>
         </div>
+        <NavigationTabs workflowId={workflowId}/>
         <div className="flex gap-1 flex-1 justify-end">
             {!hideButtons && <>
                 <ExecuteBtn workflowId = {workflowId}/>
