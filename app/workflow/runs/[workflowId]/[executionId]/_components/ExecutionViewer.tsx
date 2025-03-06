@@ -21,6 +21,7 @@ import { CalendarIcon, CircleDashedIcon, ClockIcon, CoinsIcon, Loader2Icon, Luci
 import { ReactNode, useEffect, useState } from "react";
 import PhaseStatusBadge from "./PhaseStatusBadge";
 import ReactCountUpWrapper from "@/components/ReactCountUpWrapper";
+import WorkflowStatusBadge from "./WorkflowStatusBadge";
 
 
 type ExecutionData = Awaited<ReturnType<typeof GetWorkflowExecutionWithPhases>>
@@ -61,7 +62,10 @@ function ExecutionViewer({ initialData }: { initialData: ExecutionData }) {
         <div className="flex w-full h-full">
             <aside className="w-[440px] min-w-[440px] max-w-[440px] border-2 border-separate  flex flex-grow flex-col ">
                 <div className="py-4 px-2 ">
-                    <ExecutionLabel icon={CircleDashedIcon} label="Status" value={query.data?.status} />
+                    <ExecutionLabel icon={CircleDashedIcon} label="Status" value={<div className="font-semibold capitalize flex gap-2 items-center">
+                        <WorkflowStatusBadge status={query.data?.status as WorkflowExecutionStatus}/>
+                        <span className="">{query.data?.status}</span>
+                    </div>}/>
                     <ExecutionLabel icon={CalendarIcon} label="Started at" value={
                         <span className="lowercase ">
                             {query.data?.startedAt ? formatDistanceToNow(new Date(query.data?.startedAt), {

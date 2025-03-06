@@ -10,7 +10,6 @@ import { ExecutorRegistry } from "./executor/registry";
 import { Environment, ExecutionEnvironment } from "@/types/executor";
 import { TaskParamType } from "@/types/Task";
 import { Browser, Page } from "puppeteer";
-import { browser } from "process";
 import { Edge } from "@xyflow/react";
 import { LogCollector } from "@/types/log";
 import { createLogCollector } from "../log";
@@ -37,7 +36,6 @@ export async function ExecuteWorkflow(executionId: string) {
     let executionFailed = false;
     let creditsConsumed = 0;
     for (const phase of execution.phases) {
-        // await waitFor(3000);
         // consume credits
         const phaseExecution = await executeWorkflowPhase(phase, environment, edges,execution.userId);
         creditsConsumed += phaseExecution.creditsConsumed;
@@ -123,7 +121,7 @@ async function executeWorkflowPhase(
     edges: Edge[],
     userId: string
 ) {
-    await waitFor(3000);
+   
     const logCollector = createLogCollector();
 
     const startedAt = new Date();
