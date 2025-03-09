@@ -9,13 +9,16 @@ import React from 'react'
 import SaveBtn from './SaveBtn'
 import ExecuteBtn from './ExecuteBtn'
 import NavigationTabs from './NavigationTabs'
+import PublishBtn from './PublishBtn'
+import UnPublishBtn from './UnpublishBtn'
 interface Props{
     title:string;
     subtitle?:string;
     workflowId:string; // for saving button state (draft or published)
     hideButtons? :boolean;
+    isPublished? :boolean;
 }
-function Topbar({title,subtitle,workflowId,hideButtons=false}:Props) {
+function Topbar({title,subtitle,workflowId,isPublished,hideButtons=false}:Props) {
     const router = useRouter();
   return (
     <header className="flex p-2 border-b-2 border-separate justify-between w-full h-[60px] sticky z-10 top-0 bg-background ">
@@ -34,7 +37,12 @@ function Topbar({title,subtitle,workflowId,hideButtons=false}:Props) {
         <div className="flex gap-1 flex-1 justify-end">
             {!hideButtons && <>
                 <ExecuteBtn workflowId = {workflowId}/>
+                {isPublished && <UnPublishBtn workflowId={workflowId}/>}
+                {!isPublished && <>
                 <SaveBtn workflowId={workflowId}/>
+                <PublishBtn workflowId={workflowId}/>
+                </> }
+                
             </>}
         </div>
     </header>

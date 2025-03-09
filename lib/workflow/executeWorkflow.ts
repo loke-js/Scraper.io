@@ -258,7 +258,6 @@ async function decrementCredits(
         });
         return true;
     } catch (error) {
-
         logCollector.error("insufficient balance");
         return false;
     }
