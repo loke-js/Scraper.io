@@ -27,6 +27,7 @@ export default function RunBtn({workflowId}:{workflowId:string}) {
     }}
     >
         <PlayIcon size={16}/>
+        Run
     </Button>
   )
 }
