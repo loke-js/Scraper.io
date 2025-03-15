@@ -36,7 +36,7 @@ function ExecutionViewer({ initialData }: { initialData: ExecutionData }) {
         refetchInterval: ((q) => q.state.data?.status === WorkflowExecutionStatus.RUNNING ? 1000 : false),
     });
     const phaseDetails = useQuery({
-        queryKey: ["phaseDetails", selectedPhase],
+        queryKey: ["phaseDetails", selectedPhase,query.data?.status],
         enabled: selectedPhase !== null,
         queryFn: () => GetWorkflowPhaseDetails(selectedPhase!)
     })
