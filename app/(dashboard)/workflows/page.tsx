@@ -61,7 +61,7 @@ async function UserWorkflows(){
             <CreateWorkflowDialog triggerText='Create your first workflow'/>
         </div>
     }
-    return <div>
+    return <div className='flex flex-col gap-1'>
         {workflows.map((workflow,index)=>(
             <WorkflowCard key={index} workflow={workflow}/>
         ))}

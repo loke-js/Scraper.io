@@ -14,7 +14,7 @@ import { Edge } from "@xyflow/react";
 import { LogCollector } from "@/types/log";
 import { createLogCollector } from "../log";
 
-export async function ExecuteWorkflow(executionId: string) {
+export async function ExecuteWorkflow(executionId: string,nextRunAt?:Date) {
     const execution = await prisma.workflowExecution.findUnique({
         where: { id: executionId },
         include: { workflow: true, phases: true },
@@ -30,7 +30,7 @@ export async function ExecuteWorkflow(executionId: string) {
         }
     };
     //initialize workflow execution
-    await initializeWorkflowExecution(executionId, execution.workflowId);
+    await initializeWorkflowExecution(executionId, execution.workflowId,nextRunAt);
     // initialize phases status
     await initializePhasesStatuses(execution);
     let executionFailed = false;
@@ -49,14 +49,16 @@ export async function ExecuteWorkflow(executionId: string) {
 
     // finalize execution
     await finalizeWorkflowExecution(executionId, execution.workflowId, executionFailed, creditsConsumed);
+    
     //  Cleanup environment
     await cleanUpEnvironment(environment);
-
-    revalidatePath(`/workflow/runs/`)
+    
+   
+    revalidatePath("/workflows/runs");
 }
 
 
-async function initializeWorkflowExecution(executionId: string, workflowId: string) {
+async function initializeWorkflowExecution(executionId: string, workflowId: string,nextRunAt?:Date) {
     await prisma.workflowExecution.update({
         where: { id: executionId },
         data: {
@@ -73,6 +75,7 @@ async function initializeWorkflowExecution(executionId: string, workflowId: stri
             lastRunAt: new Date(),
             lastRunStatus: WorkflowExecutionStatus.RUNNING,
             lastRunId: executionId,
+            ...(nextRunAt && {nextRunAt}) 
         }
     })
 }
@@ -256,6 +259,7 @@ async function decrementCredits(
                 }
             }
         });
+       
         return true;
     } catch (error) {
         logCollector.error("insufficient balance");
