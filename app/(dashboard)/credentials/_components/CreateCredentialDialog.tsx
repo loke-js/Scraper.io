@@ -3,7 +3,7 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button';
-import {  Loader2, ShieldEllipsis } from 'lucide-react';
+import { Loader2, ShieldEllipsis } from 'lucide-react';
 import CustomDialogHeader from '@/components/CustomDialogHeader';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -79,7 +79,7 @@ function CreateCredentialDialog({ triggerText }: { triggerText?: string }) {
                                 render={({ field }) => (
                                     <FormItem>
                                         <FormLabel className="flex gap-1 items-center">
-                                            Description
+                                            Value
                                             <p className="text-xs text-primary">(required)</p>
                                         </FormLabel>
                                         <FormControl>

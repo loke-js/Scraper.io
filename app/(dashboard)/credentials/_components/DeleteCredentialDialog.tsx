@@ -1,5 +1,6 @@
 "use client"
 
+import { DeleteCredential } from '@/actions/credentials/deleteCredential';
 import { DeleteWorkflow } from '@/actions/workflows/deleteWorkflows';
 import { AlertTitle } from '@/components/ui/alert'
 import { AlertDialog, AlertDialogCancel, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle ,AlertDialogDescription, AlertDialogAction} from '@/components/ui/alert-dialog'
@@ -18,7 +19,7 @@ function DeleteCredentialDialog({name}:Props) {
     const [confirmText,setConfirmText]=useState("");
     const [open,setOpen] = useState(false);
     const deleteMutation = useMutation({
-        mutationFn:DeleteWorkflow,
+        mutationFn:DeleteCredential,
         onSuccess:()=>{
             toast.success("Credential deleted successfully",{id:name});
             setConfirmText("");
@@ -30,12 +31,12 @@ function DeleteCredentialDialog({name}:Props) {
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
         <AlertDialogTrigger asChild>
-            <Button variant={"destructive"} size={icon}>
+            <Button variant={"destructive"} size={"icon"}>
                 <XIcon size={18}/>
             </Button>
         </AlertDialogTrigger>
         <AlertDialogContent>
-            <AlertDialogHeader >
+            <AlertDialogHeader>
                 <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
                 <AlertDialogDescription className=' text-muted-foreground'>
                     If you delete this Credential , you will  not be able to recover it.

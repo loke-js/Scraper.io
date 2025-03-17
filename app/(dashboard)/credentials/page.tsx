@@ -62,7 +62,7 @@ async function UserCredentials() {
       {credentials.map((credential) => {
         const createdAt = formatDistanceToNow(credential.createdAt,{addSuffix:true});
         return (
-        <Card key={credential.id} className='w-full p-4 flex'>
+        <Card key={credential.id} className='w-full p-4 flex justify-between'>
           <div className="flex gap-2 items-center">
             <div className="rounded-full bg-primary/10 w-8 h-8 flex items-center justify-center">
               <LockKeyholeIcon size={18} className='stroke-primary'/>

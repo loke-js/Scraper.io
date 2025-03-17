@@ -3,17 +3,17 @@
 import { prisma } from "@/lib/prisma";
 import { auth } from "@clerk/nextjs/server"
 
-export async function GetCredentialsForUser(){
-    const {userId} = auth();
-    if(!userId){
+export async function GetCredentialsForUser() {
+    const { userId } = auth();
+    if (!userId) {
         throw new Error("User not authenticated");
     }
     return prisma.credential.findMany({
-        where:{
+        where: {
             userId,
         },
-        orderBy:{
-            name:"asc",
+        orderBy: {
+            name: "asc",
         }
     })
 }
