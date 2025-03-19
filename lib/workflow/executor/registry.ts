@@ -3,13 +3,13 @@ import { LaunchBrowserExecutor } from "./LaunchBrowserExecutor";
 import { PageToHtmlExecutor } from "./PageToHtmlExecutor";
 import { ExecutionEnvironment } from "@/types/executor";
 import { WorkflowTask } from "@/types/workflow";
-import { Workflow } from "@prisma/client";
 import { ExtractTextFromElementExecutor } from "./ExtractTextFromElementExecutor";
 import { FillInputExecutor } from "./FillInputExecutor";
 import { ClickElementExecutor } from "./ClickElementExecutor";
 import { WaitForElementExecutor } from "./WaitForElementExecutor";
 import { DeliverViaWebHookExecutor } from "./DeliverViaWebHook";
 import { ExtractDataWithAiExecutor } from "./ExtractDataWithAiExecutor";
+import { ReadPropertyFromJsonExecutor } from "./ReadPropertyFromJsonExecutor";
 
 
 type ExecutorFn<T extends WorkflowTask> = (environment:ExecutionEnvironment<T>) => Promise<boolean>;
@@ -27,4 +27,5 @@ export const ExecutorRegistry:RegistryType = {
     WAIT_FOR_ELEMENT : WaitForElementExecutor,
     DELIVER_VIA_WEBHOOK : DeliverViaWebHookExecutor,
     EXTRACT_DATA_WITH_AI : ExtractDataWithAiExecutor,
+    READ_PROPERTY_FROM_JSON : ReadPropertyFromJsonExecutor,
 }
