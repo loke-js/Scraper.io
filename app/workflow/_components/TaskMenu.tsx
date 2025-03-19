@@ -1,9 +1,11 @@
 "use client"
 
 import { AccordionTrigger,Accordion, AccordionItem, AccordionContent } from '@/components/ui/accordion'
+import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { TaskRegistry } from '@/lib/workflow/task/registry'
 import { TaskType } from '@/types/Task'
+import { CoinsIcon } from 'lucide-react'
 import React from 'react'
 
 function TaskMenu() {
@@ -80,6 +82,10 @@ function TaskMenuBtn({ taskType }:{taskType:TaskType}) {
             <task.icon size={20}/>
             {task.label}
         </div>
+        <Badge variant={"outline"} className='flex items-center gap-2'>
+            <CoinsIcon size={16}/>
+            {task.credits}  
+        </Badge>
     </Button>
 }
 
