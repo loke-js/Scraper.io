@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import { TaskParam } from "@/types/Task";
 import { Handle, Position } from "@xyflow/react";
 import { ReactNode } from "react";
-import { ColorForHandle } from "../common";
+import { ColorForHandle } from "./common";
 
 export function NodeOutputs({children}:{children:ReactNode}){
     return <div className="flex flex-col divide-y gap-1">

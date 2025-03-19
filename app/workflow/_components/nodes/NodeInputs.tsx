@@ -3,7 +3,7 @@ import { TaskParam } from '@/types/Task'
 import { Handle, Position, useEdges } from '@xyflow/react'
 import React, { ReactNode } from 'react'
 import NodeParamField from './NodeParamField'
-import { ColorForHandle } from '../common'
+import { ColorForHandle } from './common'
 import useFlowValidation from '@/components/hooks/useFlowValidation'
 
 
