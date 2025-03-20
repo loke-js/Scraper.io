@@ -239,8 +239,8 @@ function createExecutionEnvironment(node: AppNode, environment: Environment, log
 
 async function cleanUpEnvironment(environment: Environment) {
     if (environment.browser) {
-        await environment.browser.close().catch(err => console.error("Cannot Close browser", err));
-    }
+        await environment.browser.close().catch(err => console.error("Cannot Close browser",err));
+    }  
 }
 
 async function decrementCredits(

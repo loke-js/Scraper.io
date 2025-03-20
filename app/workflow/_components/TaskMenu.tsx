@@ -80,7 +80,7 @@ function TaskMenuBtn({ taskType }:{taskType:TaskType}) {
     >
         <div className="flex gap-2">
             <task.icon size={20}/>
-            {task.label}
+            {task.label} 
         </div>
         <Badge variant={"outline"} className='flex items-center gap-2'>
             <CoinsIcon size={16}/>
