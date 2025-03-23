@@ -14,6 +14,7 @@ import { Edge } from "@xyflow/react";
 import { LogCollector } from "@/types/log";
 import { createLogCollector } from "../log";
 
+
 export async function ExecuteWorkflow(executionId: string,nextRunAt?:Date) {
     const execution = await prisma.workflowExecution.findUnique({
         where: { id: executionId },
@@ -192,6 +193,7 @@ async function executePhase(
     environment: Environment,
     logCollector: LogCollector
 ): Promise<boolean> {
+    await waitFor(3000)
     const runFn = ExecutorRegistry[node.data.type];
     if (!runFn) {
         logCollector.error(`Not found executor for ${node.data.type}`)
@@ -239,7 +241,7 @@ function createExecutionEnvironment(node: AppNode, environment: Environment, log
 
 async function cleanUpEnvironment(environment: Environment) {
     if (environment.browser) {
-        await environment.browser.close().catch(err => console.error("Cannot Close browser",err));
+        // await environment.browser.close().catch(err => console.error("Cannot Close browser",err));
     }  
 }
 

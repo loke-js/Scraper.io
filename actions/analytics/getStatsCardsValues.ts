@@ -35,11 +35,7 @@ export async function GetStatsCardsValues(selectedPeriod: Period) {
     const stats = {
         workflowExecutions: executions.length,
         creditsConsumed: executions.reduce((acc, execution) => acc + execution.creditsConsumed, 0),
-        phases:  executions.reduce((acc, execution) => acc + execution.phases.length, 0),
+        phaseExecutions:  executions.reduce((acc, execution) => acc + execution.phases.length, 0),
     }
     return stats;
 }
-
-// "workflowExecutions": 109,  // 
-//     "creditsConsumed": 763,
-//     "phases": 299

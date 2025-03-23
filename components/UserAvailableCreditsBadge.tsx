@@ -1,6 +1,6 @@
 "use client"
 
-import { GetAvailableCredits } from '@/actions/workflows/getAvailableCredits'
+import { GetAvailableCredits } from '@/actions/billing/getAvailableCredits'
 import { cn } from '@/lib/utils'
 import { useQuery } from '@tanstack/react-query'
 import { CoinsIcon, Loader2Icon } from 'lucide-react'
