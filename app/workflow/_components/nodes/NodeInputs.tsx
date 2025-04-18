@@ -1,3 +1,4 @@
+"use client"
 import { cn } from '@/lib/utils'
 import { TaskParam } from '@/types/Task'
 import { Handle, Position, useEdges } from '@xyflow/react'

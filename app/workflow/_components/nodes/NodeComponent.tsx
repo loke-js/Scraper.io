@@ -1,3 +1,4 @@
+"use client"
 import { memo } from "react";
 import { NodeProps } from "@xyflow/react";
 import NodeCard from "./NodeCard";

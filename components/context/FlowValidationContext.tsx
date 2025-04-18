@@ -1,3 +1,5 @@
+"use client"
+
 import { AppNodeMissingInputs } from "@/types/appNode";
 import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useState } from "react";
 
