@@ -51,7 +51,7 @@ export default function SchedulerDialog(props: { workflowId: string, cron: strin
 
     const workflowHasValidCron = props.cron && props.cron.length > 0;
     let readableSavedCron = workflowHasValidCron && cronstrue.toString(props.cron!);
-    console.log(readableSavedCron);
+    // console.log(readableSavedCron);
     return (
         <Dialog>
             <DialogTrigger asChild>

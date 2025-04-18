@@ -28,12 +28,14 @@ export async function RunWorkflow({workflowId,flowDefinition}: {
             id: workflowId
         }
     });
+
     if (!workflow) {
         throw new Error("Workflow not found");
     }
+
     let executionPlan: WorkflowExecutionPlan;
     let workflowDefinition = flowDefinition ;
-    if (workflow.status === WorkflowStatus.PUBLISHED) {
+    if (workflow.status === WorkflowStatus.PUBLISHED){
         if (!workflow.executionPlan) {
             throw new Error("no execution plan found in published workflow");
         }
@@ -53,6 +55,7 @@ export async function RunWorkflow({workflowId,flowDefinition}: {
         }
         executionPlan = result.executionPlan;
     }
+
     const execution = await prisma.workflowExecution.create({
         data: {
             workflowId, 
