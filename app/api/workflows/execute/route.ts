@@ -73,7 +73,6 @@ export async function GET(req: Request) {
             }
         })
         await ExecuteWorkflow(execution.id,nextRun);
-       
         return new Response(null,{status: 200});
     }catch(error){
         return Response.json({ error: "Internal server error" }, { status: 500 });
