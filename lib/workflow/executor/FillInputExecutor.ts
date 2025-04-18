@@ -12,6 +12,7 @@ export async function FillInputExecutor(environment: ExecutionEnvironment<typeof
         if (!value) {
             environment.log.error("Input->value not defined");
         }
+        await waitFor(1000);
         await environment.getPage()!.type(selector,value);
         return true;
     } catch (error: any) {

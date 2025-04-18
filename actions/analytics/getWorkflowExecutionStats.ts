@@ -45,9 +45,9 @@ export async function GetWorkflowExecutionStats(period: Period) {
             return acc
         }, {} as any);
 
-    executions.forEach((execution) => {
+    executions.forEach((execution) =>{
         const date = format(execution.startedAt!, dateFormat);
-        if (execution.status === WorkflowExecutionStatus.COMPLETED) {
+        if (execution.status === WorkflowExecutionStatus.COMPLETED){
             stats[date].success++;
         }
         if (execution.status === WorkflowExecutionStatus.FAILED) {

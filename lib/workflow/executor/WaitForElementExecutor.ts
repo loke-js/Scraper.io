@@ -12,16 +12,12 @@ export async function WaitForElementExecutor(environment: ExecutionEnvironment<t
         if (!visibility) {
             environment.log.error("Input->visibility not defined");
         }
-        await environment.getPage()!.waitForSelector(selector,{
-            visible:visibility=== "visible",
-            hidden:visibility=== "hidden",
-        });
+        await waitFor(3000);
         await environment.getPage()!.waitForSelector(selector,{
             visible:visibility=== "visible",
             hidden:visibility=== "hidden"
         })
         environment.log.info(`Element ${selector} became:${visibility}`)
-        // await waitFor(3000);
         return true;
     } catch (error: any) {
         environment.log.error(error.message);
