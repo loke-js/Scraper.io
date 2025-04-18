@@ -15,7 +15,7 @@ import { LogCollector } from "@/types/log";
 import { createLogCollector } from "../log";
 
 
-export async function ExecuteWorkflow(executionId: string,nextRunAt?:Date) {
+export async function ExecuteWorkflow(executionId: string, nextRunAt?: Date) {
     const execution = await prisma.workflowExecution.findUnique({
         where: { id: executionId },
         include: { workflow: true, phases: true },
@@ -31,14 +31,14 @@ export async function ExecuteWorkflow(executionId: string,nextRunAt?:Date) {
         }
     };
     //initialize workflow execution
-    await initializeWorkflowExecution(executionId, execution.workflowId,nextRunAt);
+    await initializeWorkflowExecution(executionId, execution.workflowId, nextRunAt);
     // initialize phases status
     await initializePhasesStatuses(execution);
     let executionFailed = false;
     let creditsConsumed = 0;
     for (const phase of execution.phases) {
         // consume credits
-        const phaseExecution = await executeWorkflowPhase(phase, environment, edges,execution.userId);
+        const phaseExecution = await executeWorkflowPhase(phase, environment, edges, execution.userId);
         creditsConsumed += phaseExecution.creditsConsumed;
         if (!phaseExecution.success) {
             executionFailed = true;
@@ -50,16 +50,16 @@ export async function ExecuteWorkflow(executionId: string,nextRunAt?:Date) {
 
     // finalize execution
     await finalizeWorkflowExecution(executionId, execution.workflowId, executionFailed, creditsConsumed);
-    
+
     //  Cleanup environment
     await cleanUpEnvironment(environment);
-    
-   
+
+
     revalidatePath("/workflows/runs");
 }
 
 
-async function initializeWorkflowExecution(executionId: string, workflowId: string,nextRunAt?:Date) {
+async function initializeWorkflowExecution(executionId: string, workflowId: string, nextRunAt?: Date) {
     await prisma.workflowExecution.update({
         where: { id: executionId },
         data: {
@@ -76,7 +76,7 @@ async function initializeWorkflowExecution(executionId: string, workflowId: stri
             lastRunAt: new Date(),
             lastRunStatus: WorkflowExecutionStatus.RUNNING,
             lastRunId: executionId,
-            ...(nextRunAt && {nextRunAt}) 
+            ...(nextRunAt && { nextRunAt })
         }
     })
 }
@@ -125,7 +125,7 @@ async function executeWorkflowPhase(
     edges: Edge[],
     userId: string
 ) {
-   
+
     const logCollector = createLogCollector();
 
     const startedAt = new Date();
@@ -147,21 +147,20 @@ async function executeWorkflowPhase(
     // TODO:decrement user balance
 
     let success = await decrementCredits(userId, creditsRequired, logCollector);
-    const creditsConsumed = success ?  creditsRequired:0;
-    if (success)
-    {
+    const creditsConsumed = success ? creditsRequired : 0;
+    if (success) {
         // we can execute if credits are sufficient
         success = await executePhase(phase, node, environment, logCollector);
-    }    
+    }
     const outputs = environment.phases[node.id].outputs;
-    await finalizePhase(phase.id, success, outputs, logCollector,creditsConsumed);
+    await finalizePhase(phase.id, success, outputs, logCollector, creditsConsumed);
     return {
         success,
         creditsConsumed
     };
 }
 
-async function finalizePhase(phaseId: string, success: boolean, outputs: any, logCollector: LogCollector,creditsConsumed:number) {
+async function finalizePhase(phaseId: string, success: boolean, outputs: any, logCollector: LogCollector, creditsConsumed: number) {
     const finalStatus = success ?
         ExecutionPhaseStatus.COMPLETED
         : ExecutionPhaseStatus.FAILED;
@@ -240,8 +239,8 @@ function createExecutionEnvironment(node: AppNode, environment: Environment, log
 
 async function cleanUpEnvironment(environment: Environment) {
     if (environment.browser) {
-        // await environment.browser.close().catch(err => console.error("Cannot Close browser",err));
-    }  
+        await environment.browser.close().catch(err => console.error("Cannot Close browser",err));
+    }
 }
 
 async function decrementCredits(
@@ -261,7 +260,7 @@ async function decrementCredits(
                 }
             }
         });
-       
+
         return true;
     } catch (error) {
         logCollector.error("insufficient balance");
