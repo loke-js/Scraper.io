@@ -22,13 +22,13 @@ export default function ExecutionViewerPage(
                 subtitle={`Run ID:${params.executionId}`}
                 hideButtons
             />
-            <section className="flex h-full overflow-auto">
+            <div className="flex h-full overflow-auto">
                 <Suspense fallback={<div className="flex w-full items-center justify-center">
                     <Loader2Icon className="h-10 w-10 animate-spin stroke-primary"/>
                 </div>}> 
                     <ExecutionViewerWrapper executionId={params.executionId} />
                 </Suspense>
-            </section>
+            </div>
         </div>
     )
 }

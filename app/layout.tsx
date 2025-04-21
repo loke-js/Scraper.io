@@ -33,8 +33,8 @@ export default function RootLayout({
         <AppProviders>
           {children}
         </AppProviders>
-      </body>
       <Toaster richColors/>
+      </body>
     </html>
     </ClerkProvider>
   );

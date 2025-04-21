@@ -1,6 +1,6 @@
+import "server-only";
 const ALG = "aes-256-cbc"; //key length is 32 bytes
 import crypto from "crypto";
-import "server-only";
 export const symmetricEncrypt = (data: string) => {
     const key = process.env.ENCRYPTION_KEY;
     if (!key) throw new Error('Encryption key not found');

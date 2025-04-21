@@ -14,10 +14,10 @@ function Editor({ workflow }: { workflow: Workflow }) {
       <ReactFlowProvider >
         <div className="flex flex-col h-full w-full overflow-hidden">
           <Topbar title="Workflow Editor" subtitle={workflow.name} isPublished={workflow.status === WorkflowStatus.PUBLISHED} workflowId={workflow.id} />
-          <section className='flex h-full overflow-auto'>
+          <div className='flex h-full overflow-auto'>
             <TaskMenu />
             <FlowEditor workflow={workflow} />
-          </section>
+          </div>
         </div>
       </ReactFlowProvider>
     </FlowValidationContextProvider>
