@@ -20,7 +20,7 @@ export async function ExecuteWorkflow(executionId: string, nextRunAt?: Date) {
         where: { id: executionId },
         include: { workflow: true, phases: true },
     })
-    if (!execution) {
+    if (!execution){
         throw new Error(`Workflow execution not found with id: ${executionId}`);
     }
     const edges = JSON.parse(execution.definition).edges as Edge[];
