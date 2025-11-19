@@ -1,9 +1,7 @@
 import { ExecutionEnvironment } from "@/types/executor";
 import puppeteer from "puppeteer";
 import { LaunchBrowserTask } from "../task/LaunchBrowser";
-import {exec} from "child_process";
-import { waitFor } from "@/lib/helper/waitFor";
-import * as cheerio from "cheerio";
+
 
 
 const BROWSER_WS = "wss://brd-customer-hl_5319d92f-zone-scraping_browser1:pdz89yo1j5sb@brd.superproxy.io:9222";
@@ -15,7 +13,7 @@ export async function LaunchBrowserExecutor(environment:ExecutionEnvironment<typ
     const websiteUrl = environment.getInput("Website Url");
     // console.log(websiteUrl);
     const browser = await puppeteer.launch({
-        // browserWSEndpoint:BROWSER_WS,
+        browserWSEndpoint:BROWSER_WS,
         headless:true,
     });
     environment.log.info("Browser Started Successfully");
